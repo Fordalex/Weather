@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST" action="/">
+    {% csrf_token %}
+    <label>City:</label>
+    <div id="locationField">
+        <input id="autocomplete"
+               placeholder="Enter your address"
+               onfocus="geolocate()"
+               type="text"
+               name="city" />
+        </div>
+    <button type="submit">Submit</button>
+</form>
+
+
+
+
+
+{% if city_weather.city %}
+    {{ city_weather.city }}
+    {{ city_weather.temperture }}
+    {{ city_weather.description }}
+    <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image">
+{% else %}
+    <p>{{ city_weather.error }}</p>
+{% endif %}
+
+{% endblock %}
